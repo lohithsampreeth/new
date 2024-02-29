@@ -9,6 +9,11 @@ RUN apt-get update
 RUN apt-get install -y curl
 RUN apt-get update && apt-get install -y git 
 RUN apt-get install -y git-svn
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends \
+        python3 \
+        python3-pip \
+    && rm -rf /var/lib/apt/lists/*
 # Set the working directory
 WORKDIR /app
 
@@ -16,9 +21,17 @@ WORKDIR /app
 # For example, copy a script into the image
 COPY . .
 COPY script.sh .
+# Set the working directory
+WORKDIR /app
+COPY . .
+# Copy your application files into the container
+COPY . /app
 
-# Set permissions if needed
-# RUN chmod +x script.sh
+# Install Python dependencies
+RUN pip3 install --no-cache-dir -r requirements.txt
 
-# Define the command to run when the container starts
-CMD ["/bin/bash", "./script.sh"]
+# Expose the port on which your application runs
+EXPOSE 8080
+
+# Specify the command to run your application
+CMD ["python3", "app.py"]
