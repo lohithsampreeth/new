@@ -1,22 +1,23 @@
-FROM quay.io/bedrock/ubuntu
+# Use the Ubuntu base image
+FROM ubuntu:latest
 
-# By default, listen on port 8081
-EXPOSE 8081/tcp
-ENV FLASK_PORT=8081
+# Update package lists
+RUN apt-get update
 
-# Set the working directory in the container
-WORKDIR /projects
+# Install any desired packages
+# For example, installing curl
+RUN apt-get install -y curl
 RUN apt-get update && apt-get install -y git 
 RUN apt-get install -y git-svn
-# Copy the content of the local src directory to the working directory
-COPY . .
+# Set the working directory
+WORKDIR /app
 
-# Install any dependencies
+# Add your application files
+# For example, copy a script into the image
+COPY script.sh .
 
+# Set permissions if needed
+# RUN chmod +x script.sh
 
-# Give ownership and permissions to the user
-#RUN chown -R user:user /projects
-#RUN chmod -R 755 /projects
-
-# Specify the command to run on container start
-#CMD [ "python", "./app.py" ]
+# Define the command to run when the container starts
+CMD ["/bin/bash", "./script.sh"]
