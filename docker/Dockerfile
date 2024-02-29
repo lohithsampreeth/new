@@ -14,6 +14,7 @@ WORKDIR /app
 
 # Add your application files
 # For example, copy a script into the image
+COPY . .
 COPY script.sh .
 
 # Set permissions if needed
