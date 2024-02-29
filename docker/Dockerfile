@@ -1,5 +1,5 @@
 # Use the Ubuntu base image
-FROM ubuntu:latest
+FROM quay.io/bedrock/ubuntu
 
 # Update package lists
 RUN apt-get update
