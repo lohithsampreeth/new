@@ -22,6 +22,9 @@ RUN groupadd -r user && useradd -r -g user user
 # Set password for the 'user' user (replace 'password' with your desired password)
 RUN echo 'user:password' | chpasswd
 
+# Add the 'user' user to the sudoers file to grant sudo privileges
+RUN echo "user ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
+
 # Set the working directory
 WORKDIR /app
 
