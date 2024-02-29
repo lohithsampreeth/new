@@ -1,4 +1,4 @@
-FROM ubuntu:latest
+FROM quay.io/bedrock/ubuntu
 
 # By default, listen on port 8081
 EXPOSE 8081/tcp
