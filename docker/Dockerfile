@@ -15,8 +15,8 @@ COPY . .
 
 
 # Give ownership and permissions to the user
-RUN chown -R user:user /projects
-RUN chmod -R 755 /projects
+#RUN chown -R user:user /projects
+#RUN chmod -R 755 /projects
 
 # Specify the command to run on container start
 #CMD [ "python", "./app.py" ]
