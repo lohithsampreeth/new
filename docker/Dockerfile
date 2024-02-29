@@ -14,6 +14,10 @@ RUN apt-get update \
         python3 \
         python3-pip \
     && rm -rf /var/lib/apt/lists/*
+
+# Create a new user and group with the same name 'user'
+RUN groupadd -r user && useradd -r -g user user
+
 # Set the working directory
 WORKDIR /app
 
@@ -21,9 +25,7 @@ WORKDIR /app
 # For example, copy a script into the image
 COPY . .
 COPY script.sh .
-# Set the working directory
-WORKDIR /app
-COPY . .
+
 # Copy your application files into the container
 COPY . /app
 
@@ -33,5 +35,9 @@ RUN pip3 install --no-cache-dir -r requirements.txt
 # Expose the port on which your application runs
 EXPOSE 8080
 
+# Change the ownership of the application directory to the newly created user
+RUN chown -R user:user /app
+
 # Specify the command to run your application
+USER user
 CMD ["python3", "app.py"]
