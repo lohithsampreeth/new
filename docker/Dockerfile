@@ -13,10 +13,14 @@ RUN apt-get update \
     && apt-get install -y --no-install-recommends \
         python3 \
         python3-pip \
+        sudo \
     && rm -rf /var/lib/apt/lists/*
 
 # Create a new user and group with the same name 'user'
 RUN groupadd -r user && useradd -r -g user user
+
+# Set password for the 'user' user (replace 'password' with your desired password)
+RUN echo 'user:password' | chpasswd
 
 # Set the working directory
 WORKDIR /app
